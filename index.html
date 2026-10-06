@@ -1,39 +1,594 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#08090b"><title>권력 프로젝트 · SIGNAL ENGINE</title>
-  <style>
-    :root{--bg:#08090b;--panel:#121419;--panel2:#181b21;--line:#2a2e36;--ink:#f4f5f6;--muted:#949aa5;--orange:#ff8a1f;--green:#45d49b;--red:#ff5b67;--yellow:#ffc857}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% 0,#34200d 0,transparent 30%),var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Apple SD Gothic Neo",sans-serif;letter-spacing:-.02em}.app{max-width:620px;margin:auto;padding:env(safe-area-inset-top) 16px 40px}header{padding:18px 2px 13px;display:flex;justify-content:space-between;align-items:center}.eyebrow{font-size:10px;letter-spacing:.15em;color:var(--orange);font-weight:800}.title{font-size:25px;font-weight:900;margin:3px 0}.status{font-size:11px;color:var(--green);border:1px solid #276c52;border-radius:20px;padding:6px 9px}.card{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:18px;padding:15px;margin:11px 0;box-shadow:0 10px 24px #0003}.score{display:grid;grid-template-columns:1fr 1.1fr;gap:10px}.scoreNum{font-size:51px;line-height:.9;font-weight:900;color:var(--orange)}.small{font-size:11px;color:var(--muted)}.meter,.bar{height:8px;border-radius:10px;background:#272b32;overflow:hidden}.meter i,.bar i{display:block;height:100%;background:linear-gradient(90deg,#ff9d34,#ff642e);border-radius:10px}.chip{display:inline-block;border:1px solid var(--line);background:#0d0f12;padding:6px 8px;border-radius:9px;margin:3px 3px 0 0;font-size:11px}.good{color:var(--green)}.bad{color:var(--red)}.warn{color:var(--yellow)}h2{font-size:15px;margin:0 0 3px}h3{font-size:13px;margin:0 0 9px}.section{margin:21px 0 7px;font-size:13px;font-weight:850;color:#d9dce1}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.metric{background:#0d0f12;border:1px solid var(--line);border-radius:12px;padding:10px}.metric b{display:block;margin-top:3px;font-size:16px}.metric .small{font-size:10px}.field{display:block;font-size:10px;color:var(--muted);font-weight:700}.field input,.field select{width:100%;margin-top:5px;border:1px solid #343944;border-radius:9px;background:#0c0e12;color:#f4f5f6;padding:10px;font:inherit;font-size:14px;outline:none}.field input:focus{border-color:var(--orange)}.axis{position:relative;margin:19px 8px 5px;height:106px;border-left:1px solid #4b505a;border-bottom:1px solid #4b505a;background:linear-gradient(0deg,#0d0f12,transparent)}.level{position:absolute;left:0;right:0;border-top:1px dashed var(--c);top:var(--y)}.level span{position:absolute;right:4px;top:-17px;font-size:10px;color:var(--c);font-weight:800}.needle{position:absolute;left:var(--x);top:0;bottom:0;border-left:2px solid white}.needle span{position:absolute;top:-16px;left:-18px;font-size:10px;white-space:nowrap}.action{border-left:4px solid var(--orange);padding:12px;background:#18130d;border-radius:0 12px 12px 0}.action strong{font-size:17px}.scenario{border:1px solid var(--line);border-radius:13px;padding:11px;margin-top:8px;background:#0e1014}.scenario b{font-size:13px}.scenario p{font-size:11px;line-height:1.5;color:#bdc2ca;margin:6px 0 0}.step{border-top:2px solid var(--orange)}.step:nth-child(2){border-color:#ffb156}.step:nth-child(3){border-color:#ffd087}.check{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #22262d;font-size:12px}.check input{accent-color:var(--orange)}button{border:0;background:var(--orange);color:#171009;border-radius:11px;font-weight:900;padding:12px 14px;width:100%;margin-top:12px;font-size:14px}.lock{position:fixed;inset:0;background:radial-gradient(circle at 50% 15%,#39220c,var(--bg) 55%);z-index:9;display:grid;place-items:center;padding:25px}.lockbox{text-align:center;max-width:320px}.lock .icon{font-size:52px}.lock p{color:var(--muted);font-size:13px;line-height:1.55}.hidden{display:none}.foot{color:#737985;font-size:10px;line-height:1.5;padding:10px 4px}.signal{font-size:10px;font-weight:900;padding:4px 7px;border-radius:7px;background:#25382f;color:var(--green);display:inline-block}.signal.red{background:#3c2024;color:#ff8992}.signal.wait{background:#392f18;color:#ffcf6b}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070707">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>권력 프로젝트 | SIGNAL ENGINE</title>
+<style>
+:root{
+  --bg:#050505;--panel:#0d0d0d;--panel2:#121212;--panel3:#181818;
+  --line:#292929;--line2:#3a3a3a;--text:#f3f3f3;--muted:#929292;
+  --orange:#ff9b2f;--orange2:#ff6b18;--green:#35d39b;--red:#ff5d68;
+  --yellow:#f3c84b;--blue:#66a8ff;--shadow:0 12px 35px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:
+  radial-gradient(circle at 85% 0%,rgba(255,123,24,.12),transparent 28rem),
+  radial-gradient(circle at 0% 25%,rgba(255,155,47,.06),transparent 22rem),
+  var(--bg);
+  color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  padding:env(safe-area-inset-top) 0 calc(28px + env(safe-area-inset-bottom));
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+a{color:inherit}
+header{
+  position:sticky;top:0;z-index:30;
+  padding:14px 14px 12px;
+  background:rgba(5,5,5,.92);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand h1{margin:0;color:var(--orange);font-size:22px;letter-spacing:-.8px}
+.brand .tag{font-size:9px;border:1px solid #5d3a18;border-radius:999px;padding:5px 8px;color:var(--orange);letter-spacing:.7px}
+.sub{margin-top:5px;color:var(--muted);font-size:11px;line-height:1.45}
+main{max-width:1100px;margin:auto;padding:0 11px}
+.search{display:grid;grid-template-columns:1fr auto;gap:7px;margin:12px 0 8px}
+input,select{
+  width:100%;min-width:0;border:1px solid var(--line2);background:#0a0a0a;color:var(--text);
+  border-radius:10px;padding:11px 10px;outline:none;
+}
+input:focus,select:focus{border-color:#8b551f;box-shadow:0 0 0 2px rgba(255,155,47,.08)}
+.btn{
+  border:1px solid #70431c;background:linear-gradient(180deg,#25170c,#130d08);
+  color:var(--orange);border-radius:10px;padding:0 15px;font-weight:800
+}
+.quick{display:flex;gap:6px;overflow:auto;padding-bottom:4px}
+.quick button,.tf button{
+  flex:0 0 auto;border:1px solid var(--line);background:#0b0b0b;color:#aaa;border-radius:999px;padding:7px 10px;font-size:11px
+}
+.quick button.active,.tf button.active{border-color:#87501c;background:#211309;color:var(--orange)}
+.tf{display:flex;gap:6px;margin:9px 0 11px}
+.card{
+  background:linear-gradient(180deg,rgba(18,18,18,.98),rgba(11,11,11,.98));
+  border:1px solid var(--line);border-radius:15px;padding:13px;margin:10px 0;box-shadow:var(--shadow)
+}
+.card h2{font-size:13px;margin:0 0 11px;letter-spacing:.1px}
+.card h2 span{color:var(--muted);font-size:10px;font-weight:500;margin-left:5px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+@media(min-width:760px){.grid2{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:repeat(3,1fr)}}
+.metric{
+  background:#0a0a0a;border:1px solid #222;border-radius:11px;padding:10px
+}
+.metric .k{color:var(--muted);font-size:9px}
+.metric .v{font-size:16px;font-weight:900;margin-top:4px}
+.metric .s{font-size:9px;color:var(--muted);margin-top:3px}
+.good{color:var(--green)!important}.bad{color:var(--red)!important}.warn{color:var(--yellow)!important}.orange{color:var(--orange)!important}.blue{color:var(--blue)!important}
+.hero{
+  overflow:hidden;position:relative;padding:16px;
+  background:
+    linear-gradient(135deg,rgba(255,155,47,.12),transparent 45%),
+    linear-gradient(180deg,#15110d,#0b0b0b);
+}
+.heroTop{display:grid;grid-template-columns:145px 1fr;gap:15px;align-items:center}
+@media(max-width:430px){.heroTop{grid-template-columns:120px 1fr}.scoreRing{width:118px!important;height:118px!important}}
+.scoreRing{
+  width:145px;height:145px;border-radius:50%;display:grid;place-items:center;
+  background:conic-gradient(var(--orange) 0deg,var(--orange2) 0deg,#242424 0deg);
+  position:relative;
+}
+.scoreRing:before{content:"";position:absolute;inset:10px;border-radius:50%;background:#0a0a0a}
+.scoreCenter{position:relative;text-align:center}
+.scoreNum{font-size:39px;font-weight:950;line-height:1}
+.scoreUnit{font-size:9px;color:var(--muted);margin-top:4px}
+.verdict{font-size:19px;font-weight:950;margin-bottom:4px}
+.grade{display:inline-block;border:1px solid #71451e;background:#21140a;color:var(--orange);border-radius:999px;padding:4px 8px;font-size:10px;font-weight:900}
+.conf{margin-top:10px;font-size:11px;color:var(--muted)}
+.progress{height:7px;border-radius:99px;background:#252525;overflow:hidden;margin-top:7px}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--orange2),var(--orange));border-radius:99px}
+.scoreSplit{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.splitBox{background:#090909;border:1px solid #222;border-radius:10px;padding:9px}
+.splitBox b{font-size:17px}
+.smallLabel{font-size:9px;color:var(--muted);display:block;margin-bottom:3px}
+.engineRow{display:grid;grid-template-columns:78px 1fr 42px;gap:8px;align-items:center;margin:9px 0}
+.engineName{font-size:10px;color:#ccc}
+.engineBar{height:8px;background:#242424;border-radius:99px;overflow:hidden}
+.engineBar i{height:100%;display:block;width:0;border-radius:99px;background:var(--orange)}
+.engineScore{text-align:right;font-size:10px;font-weight:800}
+.signalList{display:grid;gap:7px}
+.signal{
+  display:flex;justify-content:space-between;align-items:center;gap:8px;
+  padding:9px 10px;background:#090909;border:1px solid #222;border-radius:10px
+}
+.signal .left{display:flex;align-items:center;gap:8px;font-size:10px}
+.dot{width:8px;height:8px;border-radius:50%;background:#777;box-shadow:0 0 10px currentColor}
+.dot.good{color:var(--green);background:var(--green)}.dot.bad{color:var(--red);background:var(--red)}.dot.warn{color:var(--yellow);background:var(--yellow)}
+.signal small{color:var(--muted);font-size:9px}
+.fear{
+  display:grid;grid-template-columns:1fr 115px;gap:12px;align-items:center
+}
+.fearGauge{height:13px;border-radius:99px;background:linear-gradient(90deg,#d83f4b,#f0a542,#53d69d);position:relative}
+.fearMarker{position:absolute;top:-4px;width:21px;height:21px;border-radius:50%;background:#fff;border:4px solid #111;transform:translateX(-50%);left:50%}
+.fearNum{font-size:32px;font-weight:950;text-align:right}
+.gaugeScale{display:flex;justify-content:space-between;font-size:8px;color:var(--muted);margin-top:5px}
+.kv{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px dashed #292929;font-size:10px}
+.kv:last-child{border-bottom:0}.kv span{color:var(--muted)}.kv b{color:#eee;text-align:right}
+.formGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}
+.field label{display:block;color:var(--muted);font-size:9px;margin:0 0 4px}
+.actionRow{display:flex;gap:7px;margin-top:9px}.actionRow .btn{height:40px}
+.scenarioGraph{
+  position:relative;height:135px;margin:12px 0 5px;border:1px solid #222;border-radius:12px;overflow:hidden;
+  background:linear-gradient(180deg,#0a0a0a,#0d0d0d)
+}
+.scenarioGraph:before,.scenarioGraph:after{
+  content:"";position:absolute;left:8%;right:5%;height:1px;background:#242424
+}
+.scenarioGraph:before{top:35%}.scenarioGraph:after{top:68%}
+.level{position:absolute;left:7px;right:7px;display:flex;justify-content:space-between;font-size:8px;color:#777}
+.level b{color:#bbb}.lvR{top:7px}.lvP{top:48%}.lvS{bottom:7px}
+.scenarioLine{
+  position:absolute;left:8%;right:5%;top:52%;height:3px;background:linear-gradient(90deg,var(--red),var(--yellow),var(--green));
+  transform:rotate(-7deg);transform-origin:left center;border-radius:99px
+}
+.priceDot{position:absolute;width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--orange);box-shadow:0 0 16px var(--orange);transform:translate(-50%,-50%);top:52%;left:48%}
+.chips{display:flex;flex-wrap:wrap;gap:5px}.chip{font-size:9px;border:1px solid #2b2b2b;background:#0a0a0a;border-radius:999px;padding:5px 7px;color:#bbb}
+.chartBox{height:430px}.tv{width:100%;min-height:300px;border-radius:10px;overflow:hidden;background:#080808}
+.note{font-size:9px;line-height:1.55;color:#777;margin:9px 0 0}
+.sectionNav{display:flex;gap:6px;overflow:auto;margin:10px 0 3px;position:sticky;top:71px;z-index:20;padding:5px 0;background:rgba(5,5,5,.9);backdrop-filter:blur(12px)}
+.sectionNav a{white-space:nowrap;text-decoration:none;font-size:9px;color:#aaa;border:1px solid #242424;padding:6px 8px;border-radius:999px;background:#0a0a0a}
+.sectionNav a:hover{color:var(--orange);border-color:#70431c}
+details{border:1px solid #242424;border-radius:11px;background:#090909;margin-top:8px}
+summary{cursor:pointer;padding:10px;font-size:10px;color:#ddd}
+details .inside{padding:0 10px 10px}
+.footer{text-align:center;color:#666;font-size:9px;padding:20px 0}
+.linkRow{display:flex;flex-wrap:wrap;gap:6px}.linkRow a{text-decoration:none;border:1px solid #292929;background:#0a0a0a;border-radius:8px;padding:7px 9px;font-size:9px;color:#aaa}
+canvas{width:100%;height:95px;display:block}
+.status{font-size:9px;color:#777;margin-top:7px}
+</style>
 </head>
 <body>
-<div class="lock" id="lock"><div class="lockbox"><div class="icon">◉</div><div class="eyebrow">POWER PROJECT · PRIVATE ACCESS</div><h1>Face ID 잠금</h1><p>이 기기의 생체 인증 또는 기기 암호로 개인 포지션 화면을 엽니다.</p><button id="unlock">Face ID로 열기</button><p id="lockmsg" class="small">Safari의 패스키를 사용합니다. 최초 1회 등록이 필요할 수 있습니다.</p></div></div>
-<main class="app" id="app">
- <header><div><div class="eyebrow">POWER PROJECT</div><div class="title">SIGNAL ENGINE</div></div><div class="status">● LIVE ANALYSIS</div></header>
- <section class="card score"><div><div class="small">POWER PROJECT SCORE</div><div class="scoreNum"><span id="score">82</span><span style="font-size:17px">/100</span></div><b class="good" id="grade">S · BUY BIAS</b></div><div><div class="small">신호 합의도</div><b id="consensus">6 / 7 엔진</b><div class="meter" style="margin:9px 0"><i id="scorebar" style="width:82%"></i></div><span class="chip" id="confidence">신뢰도 88%</span><span class="chip" id="marketChip">시장: Risk-On</span></div></section>
- <section class="card"><h2>시장 보정 레이어</h2><div class="grid3"><div class="metric"><span class="small">Fear & Greed</span><b class="warn" id="fg">62</b></div><div class="metric"><span class="small">VIX</span><b class="good" id="vix">—</b></div><div class="metric"><span class="small">S&P 500</span><b id="spx">—</b></div></div><button id="refresh" onclick="refreshMarket()">↻ 시장 데이터 새로고침</button><div class="small" id="refreshStatus" style="margin-top:9px">인터넷 연결 후 버튼을 누르면 공개 시세를 조회합니다.</div><div class="grid" style="margin-top:12px"><label class="field">Fear & Greed (0–100)<input id="manualFg" type="number" min="0" max="100" value="62"></label><label class="field">VIX<input id="manualVix" type="number" step="0.01" placeholder="자동 또는 직접 입력"></label><label class="field">외국인 수급 판단<select id="flow"><option value="0">중립 / 미입력</option><option value="1">순매수 우세</option><option value="-1">순매도 우세</option></select></label><label class="field">기술 신호 합의<select id="tech"><option value="2">강함 (6–7개)</option><option value="0">중립 (3–5개)</option><option value="-2">약함 (0–2개)</option></select></label></div><button onclick="updateSignalScore()">입력값으로 점수 갱신</button><div class="small" style="margin-top:10px">자동 조회: VIX·S&P 500·NASDAQ·KOSPI·KOSDAQ·달러 인덱스(가능한 공개 시세). Fear & Greed와 종목별 수급은 출처·접근 권한 차이로 직접 입력값을 우선합니다.</div></section>
- <div class="section">MY POSITION · 개인 포지션 입력</div>
- <section class="card"><h2>시나리오 포지션 엔진</h2><p class="small">현재가와 본인 기준을 입력하면 금액·거리·조건부 행동 시나리오를 계산합니다.</p><div class="grid" style="margin-top:11px"><label class="field">종목명<input id="ticker" value="검색 종목"></label><label class="field">현재가<input id="current" type="number" value="75000"></label><label class="field">매수가 / 평단<input id="avg" type="number" value="72000"></label><label class="field">보유 수량<input id="qty" type="number" value="10"></label><label class="field">투입 금액 (선택)<input id="capital" type="number" value="720000"></label><label class="field">최대 허용 손실<input id="maxloss" type="number" value="50000"></label><label class="field">지지 가격<input id="support" type="number" value="73000"></label><label class="field">저항 가격<input id="resist" type="number" value="78000"></label><label class="field">손절 기준<input id="stop" type="number" value="71000"></label><label class="field">1차 목표가<input id="target1" type="number" value="80000"></label><label class="field">2차 목표가<input id="target2" type="number" value="83000"></label><label class="field">시장 레짐<select id="regime"><option value="riskon">Risk-On / 우호</option><option value="neutral">중립 / 혼조</option><option value="riskoff">Risk-Off / 경계</option></select></label></div><button onclick="calc()">내 포지션 시나리오 업데이트</button></section>
- <section class="card"><h2>가격 위치 맵</h2><div class="axis" id="axis"><div class="level" id="vstop" style="--c:#ff5b67"><span>손절 <em id="lstop"></em></span></div><div class="level" id="vsupport" style="--c:#ffc857"><span>지지 <em id="lsupport"></em></span></div><div class="level" id="vresist" style="--c:#b6bbc4"><span>저항 <em id="lresist"></em></span></div><div class="level" id="vt1" style="--c:#ff9d34"><span>1차 목표 <em id="lt1"></em></span></div><div class="level" id="vt2" style="--c:#45d49b"><span>2차 목표 <em id="lt2"></em></span></div><div class="needle" id="needle"><span>현재가 <em id="lcurrent"></em></span></div></div><div class="small">가격축은 확률 예측이 아닌, 입력한 기준 가격 간의 위치를 보여줍니다.</div></section>
- <section class="card"><div id="action" class="action"></div><div class="grid" style="margin-top:11px" id="metrics"></div></section>
- <section class="card"><h2>조건부 시나리오</h2><div id="scenarios"></div></section>
- <section class="card"><h2>Position Heat</h2><div class="grid3"><div class="metric"><span class="small">가격 위치</span><b id="heatPrice">—</b></div><div class="metric"><span class="small">현재 손익</span><b id="heatPnl">—</b></div><div class="metric"><span class="small">시장 보정</span><b id="heatMarket">—</b></div></div><p class="small" id="heatText" style="margin-bottom:0"></p></section>
- <section class="card"><h2>Catalyst / Risk checklist</h2><label class="check"><input type="checkbox"> 실적·가이던스·공시 일정 확인</label><label class="check"><input type="checkbox"> 거래량 동반 돌파 조건 확인</label><label class="check"><input type="checkbox"> 시장/VIX 급변 리스크 확인</label><label class="check"><input type="checkbox"> 지지 이탈 시 손절 실행 계획 확인</label><label class="check"><input type="checkbox"> 목표 도달 시 분할매도 계획 확인</label></section>
- <section class="card"><h2>3단계 실행 계획</h2><div class="grid3"><div class="metric step"><span class="small">1단계 · 지지/돌파</span><b id="step1">—</b><span class="small">분할 매수/유지</span></div><div class="metric step"><span class="small">2단계 · 1차 목표</span><b id="step2">—</b><span class="small">1/3 분할매도</span></div><div class="metric step"><span class="small">3단계 · 2차 목표</span><b id="step3">—</b><span class="small">잔여 정리/추적</span></div></div><div class="scenario"><b>알림 상태</b><p id="alertstate">입력값을 기준으로 상태를 계산합니다. 이 페이지는 브라우저 푸시 알림을 자동 발송하지 않으며, 가격 확인 시 실행할 행동을 명확히 표시합니다.</p></div></section>
- <p class="foot">본 도구는 교육·의사결정 보조용이며 투자 조언이나 수익을 보장하지 않습니다. 가격 및 신호는 직접 확인하고, 손실 감내 범위 내에서 판단하세요.</p>
+<header>
+  <div class="brand">
+    <h1>권력 프로젝트</h1>
+    <span class="tag">SIGNAL ENGINE v3</span>
+  </div>
+  <div class="sub">가격 · 추세 · 모멘텀 · 거래량 · 수급 · 시장레짐 · 공포탐욕 · 변동성을 하나의 의사결정 시스템으로 압축합니다.</div>
+</header>
+
+<main>
+  <div class="search">
+    <input id="symbol" value="NASDAQ:NVDA" placeholder="예: NASDAQ:NVDA / KRX:005930">
+    <button class="btn" id="load">조회</button>
+  </div>
+  <div class="quick">
+    <button data-symbol="NASDAQ:NVDA">NVDA</button>
+    <button data-symbol="NASDAQ:QQQ">QQQ</button>
+    <button data-symbol="NASDAQ:MSFT">MSFT</button>
+    <button data-symbol="NASDAQ:AAPL">AAPL</button>
+    <button data-symbol="KRX:005930">삼성전자</button>
+    <button data-symbol="KRX:000660">SK하이닉스</button>
+  </div>
+  <div class="tf">
+    <button class="active" data-interval="D">D</button>
+    <button data-interval="W">W</button>
+    <button data-interval="M">M</button>
+  </div>
+
+  <nav class="sectionNav">
+    <a href="#score">종합평가</a><a href="#engine">Signal</a><a href="#alerts">알림</a><a href="#market">시장</a><a href="#scenario">시나리오</a><a href="#chart">차트</a>
+  </nav>
+
+  <section class="card hero" id="score">
+    <h2>POWER PROJECT SCORE <span>최종 의사결정</span></h2>
+    <div class="heroTop">
+      <div class="scoreRing" id="scoreRing">
+        <div class="scoreCenter"><div class="scoreNum" id="totalScore">--</div><div class="scoreUnit">/ 100</div></div>
+      </div>
+      <div>
+        <div class="verdict" id="verdict">데이터 입력 필요</div>
+        <span class="grade" id="grade">-</span>
+        <div class="conf">신뢰도 <b id="confidence">--%</b></div>
+        <div class="progress"><i id="confidenceBar"></i></div>
+        <div class="scoreSplit">
+          <div class="splitBox"><span class="smallLabel">BUY BIAS</span><b class="good" id="buyScore">--</b></div>
+          <div class="splitBox"><span class="smallLabel">SELL RISK</span><b class="bad" id="sellScore">--</b></div>
+        </div>
+      </div>
+    </div>
+    <div class="grid3" style="margin-top:12px">
+      <div class="metric"><div class="k">신호 합의도</div><div class="v" id="consensus">--/8</div><div class="s" id="consensusText">-</div></div>
+      <div class="metric"><div class="k">Signal 변화</div><div class="v" id="delta">0</div><div class="s">직전 점수 대비</div></div>
+      <div class="metric"><div class="k">최종 판단</div><div class="v orange" id="decision">입력 필요</div><div class="s" id="decisionSub">-</div></div>
+    </div>
+    <canvas id="scoreHistory" width="800" height="190"></canvas>
+    <div class="status">※ 기본값은 시스템 동작 확인용 예시값입니다. 실제 매매 전에는 종목별 최신 수치를 입력하십시오.</div>
+  </section>
+
+  <section class="card" id="engine">
+    <h2>SIGNAL ENGINE <span>100점 구성</span></h2>
+    <div id="engineRows"></div>
+    <div class="grid2">
+      <div class="metric"><div class="k">핵심 강점</div><div class="v good" id="strength">-</div><div class="s" id="strengthSub">-</div></div>
+      <div class="metric"><div class="k">핵심 위험</div><div class="v bad" id="risk">-</div><div class="s" id="riskSub">-</div></div>
+    </div>
+  </section>
+
+  <section class="card" id="alerts">
+    <h2>BUY / SELL ALERT <span>자동 판정</span></h2>
+    <div class="signalList" id="signalList"></div>
+  </section>
+
+  <section class="card">
+    <h2>DIVERGENCE ENGINE <span>괴리 탐지</span></h2>
+    <div class="grid3">
+      <div class="metric"><div class="k">가격 ↔ 수급</div><div class="v" id="divFlow">--</div><div class="s" id="divFlowSub">-</div></div>
+      <div class="metric"><div class="k">가격 ↔ RSI</div><div class="v" id="divRsi">--</div><div class="s" id="divRsiSub">-</div></div>
+      <div class="metric"><div class="k">종목 ↔ 시장</div><div class="v" id="divMarket">--</div><div class="s" id="divMarketSub">-</div></div>
+    </div>
+    <div class="chips" style="margin-top:10px" id="divChips"></div>
+  </section>
+
+  <section class="card" id="market">
+    <h2>MARKET FEAR & REGIME <span>시장 필터</span></h2>
+    <div class="fear">
+      <div>
+        <div class="smallLabel">FEAR & GREED</div>
+        <div class="fearGauge"><i class="fearMarker" id="fearMarker"></i></div>
+        <div class="gaugeScale"><span>Extreme Fear</span><span>Neutral</span><span>Extreme Greed</span></div>
+      </div>
+      <div><div class="fearNum" id="fearNum">--</div><div style="text-align:right;font-size:9px;color:#aaa" id="fearLabel">-</div></div>
+    </div>
+    <div class="grid3" style="margin-top:12px">
+      <div class="metric"><div class="k">VIX</div><div class="v" id="vixValue">--</div><div class="s" id="vixLabel">-</div></div>
+      <div class="metric"><div class="k">VIX1D</div><div class="v" id="vix1dValue">--</div><div class="s">1일 기대변동성</div></div>
+      <div class="metric"><div class="k">VIX3M</div><div class="v" id="vix3mValue">--</div><div class="s">3개월 기대변동성</div></div>
+    </div>
+    <div class="kv"><span>VIX 구조</span><b id="vixStructure">-</b></div>
+    <div class="kv"><span>시장 레짐</span><b id="marketRegime">-</b></div>
+    <div class="grid4" style="margin-top:10px">
+      <div class="metric"><div class="k">S&P</div><div class="v" id="mSP">-</div></div>
+      <div class="metric"><div class="k">NASDAQ</div><div class="v" id="mND">-</div></div>
+      <div class="metric"><div class="k">KOSPI</div><div class="v" id="mKS">-</div></div>
+      <div class="metric"><div class="k">KOSDAQ</div><div class="v" id="mKQ">-</div></div>
+    </div>
+    <div class="grid4" style="margin-top:7px">
+      <div class="metric"><div class="k">DXY</div><div class="v" id="mDXY">-</div></div>
+      <div class="metric"><div class="k">US10Y</div><div class="v" id="mUS10Y">-</div></div>
+      <div class="metric"><div class="k">OIL</div><div class="v" id="mOIL">-</div></div>
+      <div class="metric"><div class="k">GOLD</div><div class="v" id="mGOLD">-</div></div>
+    </div>
+  </section>
+
+  <section class="card" id="scenario">
+    <h2>SCENARIO ENGINE <span>지지·저항·R/R</span></h2>
+    <div class="formGrid">
+      <div class="field"><label>현재가</label><input id="price" type="number" value="100"></div>
+      <div class="field"><label>지지선</label><input id="support" type="number" value="94"></div>
+      <div class="field"><label>저항선</label><input id="resistance" type="number" value="113"></div>
+      <div class="field"><label>확장 버퍼 %</label><input id="buffer" type="number" value="2"></div>
+    </div>
+    <div class="scenarioGraph">
+      <div class="level lvR"><span>저항</span><b id="graphR">113</b></div>
+      <div class="level lvP"><span>현재</span><b id="graphP">100</b></div>
+      <div class="level lvS"><span>지지</span><b id="graphS">94</b></div>
+      <div class="scenarioLine"></div><div class="priceDot" id="priceDot"></div>
+    </div>
+    <div id="forecast"></div>
+    <div class="actionRow"><button class="btn" id="calc" style="width:100%">시나리오 계산</button></div>
+  </section>
+
+  <section class="card">
+    <h2>FLOW DIVERGENCE <span>외국인·기관·개인</span></h2>
+    <div class="formGrid">
+      <div class="field"><label>외국인 순매수 (억원)</label><input id="foreign" type="number" value="320"></div>
+      <div class="field"><label>기관 순매수 (억원)</label><input id="institution" type="number" value="180"></div>
+      <div class="field"><label>개인 순매수 (억원)</label><input id="retail" type="number" value="-460"></div>
+      <div class="field"><label>기간</label><select id="flowperiod"><option>1일</option><option>5일</option><option>20일</option></select></div>
+    </div>
+    <div class="actionRow"><button class="btn" id="flowcalc" style="width:100%">괴리 분석</button></div>
+    <div id="flowresult" style="margin-top:8px"></div>
+  </section>
+
+  <details>
+    <summary>⚙️ SIGNAL ENGINE 입력값 — 지표 세부 조정</summary>
+    <div class="inside">
+      <div class="formGrid">
+        <div class="field"><label>RSI</label><input id="rsi" type="number" value="42"></div>
+        <div class="field"><label>이전 RSI</label><input id="rsiPrev" type="number" value="37"></div>
+        <div class="field"><label>EMA 배열 (-2~2)</label><input id="emaAlign" type="number" value="2"></div>
+        <div class="field"><label>MACD 상태 (-2~2)</label><input id="macd" type="number" value="1"></div>
+        <div class="field"><label>거래량 / 20일 평균</label><input id="volRatio" type="number" value="1.7"></div>
+        <div class="field"><label>가격 변화 %</label><input id="priceChange" type="number" value="2.4"></div>
+        <div class="field"><label>종목 상대강도 %</label><input id="relative" type="number" value="1.8"></div>
+        <div class="field"><label>VWAP 대비 %</label><input id="vwapDiff" type="number" value="1.2"></div>
+        <div class="field"><label>BB 폭 %</label><input id="bbWidth" type="number" value="3.2"></div>
+        <div class="field"><label>BB 20일 평균 폭 %</label><input id="bbAvg" type="number" value="6.4"></div>
+        <div class="field"><label>Fear & Greed (0~100)</label><input id="fear" type="number" value="31"></div>
+        <div class="field"><label>VIX</label><input id="vix" type="number" value="18.4"></div>
+        <div class="field"><label>VIX1D</label><input id="vix1d" type="number" value="15.8"></div>
+        <div class="field"><label>VIX3M</label><input id="vix3m" type="number" value="20.1"></div>
+        <div class="field"><label>시장점수 (0~10)</label><input id="marketScore" type="number" value="7"></div>
+        <div class="field"><label>수급 방향 (-2~2)</label><input id="flowBias" type="number" value="2"></div>
+        <div class="field"><label>가격-RSI 괴리 (-2~2)</label><input id="rsiDiv" type="number" value="1"></div>
+        <div class="field"><label>종목-시장 괴리 (-2~2)</label><input id="marketDiv" type="number" value="1"></div>
+      </div>
+      <div class="actionRow"><button class="btn" id="recalc" style="width:100%">전체 점수 재계산</button></div>
+      <p class="note">정적 GitHub Pages 버전에서는 거래소·브로커의 실시간 수급/지표 API를 직접 호출하지 않습니다. 따라서 이 패널은 최신 값을 넣으면 자체 엔진이 동일한 규칙으로 점수를 계산하도록 설계되어 있습니다.</p>
+    </div>
+  </details>
+
+  <section class="card" id="chart">
+    <h2>TRADINGVIEW <span>차트 · 기술 · 펀더멘털 · 뉴스</span></h2>
+    <div id="tvchart" class="tv"></div>
+  </section>
+  <section class="card">
+    <h2>TECHNICAL ANALYSIS</h2>
+    <div id="technical" class="tv"></div>
+  </section>
+  <section class="card">
+    <h2>FUNDAMENTAL DATA</h2>
+    <div id="fundamental" class="tv"></div>
+  </section>
+  <section class="card">
+    <h2>NEWS</h2>
+    <div id="news" class="tv"></div>
+    <div class="linkRow" style="margin-top:8px">
+      <a id="yahoo" target="_blank" rel="noopener">Yahoo Finance</a>
+      <a id="google" target="_blank" rel="noopener">Google News</a>
+      <a id="sec" target="_blank" rel="noopener">SEC</a>
+      <a href="https://www.cboe.com/tradable_products/vix/" target="_blank" rel="noopener">Cboe VIX</a>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>MARKET OVERVIEW <span>TradingView</span></h2>
+    <div id="marketWidget" class="tv"></div>
+  </section>
+
+  <section class="card">
+    <h2>DATA SOURCES / 운영 원칙</h2>
+    <div class="kv"><span>차트</span><b>TradingView</b></div>
+    <div class="kv"><span>VIX 정의</span><b>Cboe 30일 기대변동성</b></div>
+    <div class="kv"><span>Fear & Greed</span><b>외부 최신값 확인 후 입력</b></div>
+    <div class="kv"><span>점수 방식</span><b>규칙 기반 100점</b></div>
+    <div class="kv"><span>투자 판단</span><b>보조 의사결정 시스템</b></div>
+    <p class="note">점수는 예측값이 아니라 현재 입력된 시장·가격·수급 조건의 정량화입니다. 실제 투자에서는 공시, 실적, 밸류에이션, 유동성, 이벤트 리스크를 별도로 확인하십시오.</p>
+  </section>
+
+  <div class="footer">권력 프로젝트 · SIGNAL ENGINE · static HTML · GitHub Pages compatible</div>
 </main>
+
 <script>
-const $=id=>document.getElementById(id), n=id=>Number($(id).value)||0, won=x=>new Intl.NumberFormat('ko-KR',{maximumFractionDigits:0}).format(x)+'원', pct=x=>(x>=0?'+':'')+x.toFixed(1)+'%';
-async function quote(symbol){const u='https://query1.finance.yahoo.com/v8/finance/chart/'+encodeURIComponent(symbol)+'?range=5d&interval=1d';const r=await fetch(u);if(!r.ok)throw Error(r.status);const x=await r.json(),q=x.chart.result[0],a=q.indicators.quote[0].close.filter(Number.isFinite);return a.at(-1)}
-async function refreshMarket(){const btn=$('refresh'),status=$('refreshStatus');btn.disabled=true;btn.textContent='조회 중…';status.textContent='공개 시세를 불러오는 중입니다.';try{const [vix,spx,ixic,kospi,kosdaq,dxy]=await Promise.all([quote('^VIX'),quote('^GSPC'),quote('^IXIC'),quote('^KS11'),quote('^KQ11'),quote('DX-Y.NYB')]);$('vix').textContent=vix.toFixed(2);$('spx').textContent=spx.toFixed(0);$('manualVix').value=vix.toFixed(2);status.textContent=`마지막 조회: ${new Date().toLocaleString('ko-KR')} · NASDAQ ${ixic.toFixed(0)} / KOSPI ${kospi.toFixed(0)} / KOSDAQ ${kosdaq.toFixed(0)} / DXY ${dxy.toFixed(2)}`;updateSignalScore()}catch(e){status.textContent='자동 조회에 실패했습니다. 네트워크·데이터 제공처의 CORS 정책 또는 시세 심볼을 확인하고, 아래 입력칸에 최신값을 직접 넣어 갱신하세요.'}finally{btn.disabled=false;btn.textContent='↻ 시장 데이터 새로고침'}}
-function updateSignalScore(){const fg=Math.max(0,Math.min(100,n('manualFg'))),v=n('manualVix'),flow=Number($('flow').value),tech=Number($('tech').value);let adj=tech*3+flow*2+(fg>=55?3:fg<35?-4:0)+(v?(v<20?3:v>30?-5:0):0);let score=Math.max(0,Math.min(100,76+adj)),label=score>=80?'S · BUY BIAS':score>=65?'A · POSITIVE':score>=50?'B · WAIT':score>=35?'C · REDUCE':'D · DEFENSIVE',reg=score>=65?'Risk-On':score>=50?'Neutral':'Risk-Off';$('score').textContent=score;$('grade').textContent=label;$('scorebar').style.width=score+'%';$('consensus').textContent=(score>=80?'6 / 7':score>=65?'5 / 7':score>=50?'4 / 7':'2 / 7')+' 엔진';$('confidence').textContent='신뢰도 '+Math.min(93,Math.max(54,score+6))+'%';$('marketChip').textContent='시장: '+reg;$('fg').textContent=fg;calc()}
-function calc(){const c=n('current'),a=n('avg'),q=n('qty'),cap=n('capital')||a*q,s=n('support'),r=n('resist'),st=n('stop'),t1=n('target1'),t2=n('target2'),ml=n('maxloss'),reg=$('regime').value; const pnl=(c-a)*q, pnlp=a?((c-a)/a*100):0, risk=a-st, reward=t1-a, rr=risk>0?reward/risk:0, dist=x=>c?((x-c)/c*100):0, allowed=risk>0?Math.floor(ml/risk):0; const range=Math.max(t2, t1, r, c, s, st)-Math.min(t2,t1,r,c,s,st)||1; const pos=Math.max(3,Math.min(97,((c-Math.min(t2,t1,r,c,s,st))/range)*100));
- [['lstop',st],['lsupport',s],['lresist',r],['lt1',t1],['lt2',t2],['lcurrent',c]].forEach(([id,v])=>$(id).textContent=won(v)); const base=Math.min(t2,t1,r,c,s,st), top=base+range; [['vstop',st],['vsupport',s],['vresist',r],['vt1',t1],['vt2',t2]].forEach(([id,v])=>$(id).style.setProperty('--y',(96-((v-base)/(top-base)*92))+'%')); $('needle').style.setProperty('--x',pos+'%');
- $('metrics').innerHTML=`<div class="metric"><span class="small">예상 손익</span><b class="${pnl>=0?'good':'bad'}">${pnl>=0?'+':''}${won(pnl)}</b><span class="small">${pct(pnlp)}</span></div><div class="metric"><span class="small">손절 시 손실</span><b class="bad">-${won(Math.max(0,(a-st)*q))}</b><span class="small">현재가에서 ${pct(dist(st))}</span></div><div class="metric"><span class="small">1차 목표 수익</span><b class="good">+${won((t1-a)*q)}</b><span class="small">현재가에서 ${pct(dist(t1))}</span></div><div class="metric"><span class="small">2차 목표 수익</span><b class="good">+${won((t2-a)*q)}</b><span class="small">R:R ${rr.toFixed(2)} · 비중 ${cap?((a*q/cap)*100).toFixed(0):0}%</span></div><div class="metric"><span class="small">적정 최대 수량</span><b>${allowed.toLocaleString()}주</b><span class="small">허용손실 ${won(ml)} 기준</span></div><div class="metric"><span class="small">저항까지 거리</span><b>${pct(dist(r))}</b><span class="small">손절/목표를 재점검하세요</span></div>`;
- let zone=c<=s*1.015?'지지 근처':c>=r*.985?'저항 근처':'중간', act,detail; if(c<=st){act='STOP · 손절 기준 이탈';detail='사전에 정한 손절 기준 아래입니다. 추가 매수보다 리스크 축소·계획 재검토 조건입니다.'}else if(c>=r*.985){act=reg==='riskon'?'REDUCE / 돌파 확인':'REDUCE · 저항 근처';detail=reg==='riskon'?'거래량을 동반해 저항 위에서 유지되는지 확인 전까지 일부 이익 실현 또는 대기 조건입니다.':'시장 보정이 약합니다. 저항 부근에서는 분할매도·비중 조절 조건입니다.'}else if(c<=s*1.015){act=reg==='riskoff'?'WAIT · 지지 확인':'BUY SETUP · 지지 확인';detail=reg==='riskoff'?'지지 근처지만 시장이 방어적입니다. 반등·수급 확인 전 성급한 진입은 보류 조건입니다.':'지지 유지, 반등 캔들 및 수급 확인 시 분할 진입/유지 조건입니다.'}else{act='WAIT · 중간 구간';detail='지지와 저항 사이입니다. 추격 매수보다 돌파 확인 또는 지지 재테스트를 기다리는 조건입니다.'} const cls=act.includes('STOP')?'red':act.includes('WAIT')?'wait':''; $('action').innerHTML=`<span class="signal ${cls}">${zone}</span><br><strong>${act}</strong><div class="small" style="margin-top:5px">${detail}</div>`;
- $('scenarios').innerHTML=`<div class="scenario"><b class="good">상승 조건 · 돌파</b><p>저항 ${won(r)} 위에서 거래량/신호 엔진이 확인되면 1차 목표 ${won(t1)}를 관리 기준으로 삼고, 도달 시 1/3 분할매도 조건입니다.</p></div><div class="scenario"><b class="warn">횡보 조건 · 대기</b><p>${won(s)} ~ ${won(r)} 범위에서는 중간 구간 추격을 피하고, 지지 확인 또는 저항 돌파 중 하나가 발생할 때까지 WAIT 조건입니다.</p></div><div class="scenario"><b class="bad">하락 조건 · 보호</b><p>지지 이탈 후 ${won(st)} 아래에서 유지되면 STOP 조건입니다. 희망회복이 아니라 미리 정한 최대 손실 한도로 대응합니다.</p></div>`;
- $('heatPrice').textContent=zone; $('heatPnl').textContent=pct(pnlp); $('heatPnl').className=pnl>=0?'good':'bad'; $('heatMarket').textContent=reg==='riskon'?'우호':'neutral'===reg?'중립':'경계'; $('heatText').textContent=`포지션 열은 ${zone}, 손익은 ${pct(pnlp)}, 시장 레짐은 ${$('heatMarket').textContent}입니다. 세 요소가 동시에 나빠질 때는 비중보다 리스크 한도를 우선합니다.`; $('step1').textContent=won(s);$('step2').textContent=won(t1);$('step3').textContent=won(t2); $('alertstate').textContent=c<=st?'현재 손절 기준 이탈: STOP 실행 여부를 즉시 확인하세요.':c>=t2?'2차 목표 도달: 잔여 물량 정리 또는 추적 기준을 확인하세요.':c>=t1?'1차 목표 도달: 계획한 1/3 분할매도 상태입니다.':c>=r?'저항 돌파 관찰: 종가 및 거래량 확인 상태입니다.':`현재 ${zone}: 다음 관찰 가격은 ${won(c<=s*1.015?r:s)}입니다.`; }
-function b64(a){return Uint8Array.from(a,()=>Math.floor(Math.random()*256));}async function unlock(){const msg=$('lockmsg');try{if(!window.PublicKeyCredential)throw Error(); const key='pp-cred',saved=localStorage.getItem(key),publicKey=saved?{challenge:b64(32),allowCredentials:[{id:Uint8Array.from(atob(saved),x=>x.charCodeAt(0)),type:'public-key'}],userVerification:'required',timeout:60000}:{challenge:b64(32),rp:{name:'Power Project'},user:{id:b64(16),name:'power-project@local',displayName:'Power Project'},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required',residentKey:'preferred'},timeout:60000}; const cred=saved?await navigator.credentials.get({publicKey}):await navigator.credentials.create({publicKey}); if(!saved)localStorage.setItem(key,btoa(String.fromCharCode(...new Uint8Array(cred.rawId)))); $('lock').classList.add('hidden');}catch(e){msg.textContent='이 브라우저에서는 Face ID/패스키를 사용할 수 없거나 인증이 취소되었습니다. HTTPS Safari에서 다시 시도하세요.';}}
-$('unlock').onclick=unlock;updateSignalScore();
-</script></body></html>
+const $=id=>document.getElementById(id);
+let interval="D";
+
+const defaults={
+  rsi:42,rsiPrev:37,emaAlign:2,macd:1,volRatio:1.7,priceChange:2.4,relative:1.8,
+  vwapDiff:1.2,bbWidth:3.2,bbAvg:6.4,fear:31,vix:18.4,vix1d:15.8,vix3m:20.1,
+  marketScore:7,flowBias:2,rsiDiv:1,marketDiv:1
+};
+const history=[62,66,64,69,71,74,72,76,78];
+
+function num(id,fallback=0){
+  const v=parseFloat($(id)?.value);
+  return Number.isFinite(v)?v:fallback;
+}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function sign(v){return v>0?1:v<0?-1:0}
+function fmt(v,d=1){return Number(v).toLocaleString("ko-KR",{maximumFractionDigits:d})}
+
+function engine(){
+  const rsi=num("rsi",42), ema=clamp(num("emaAlign",2),-2,2), macd=clamp(num("macd",1),-2,2);
+  const vr=Math.max(.1,num("volRatio",1.7)), pc=num("priceChange",2.4), rel=num("relative",1.8);
+  const vwap=num("vwapDiff",1.2), bbw=Math.max(.1,num("bbWidth",3.2)), bba=Math.max(.1,num("bbAvg",6.4));
+  const fear=clamp(num("fear",31),0,100), vix=Math.max(.1,num("vix",18.4));
+  const ms=clamp(num("marketScore",7),0,10), flow=clamp(num("flowBias",2),-2,2);
+  const rdiv=clamp(num("rsiDiv",1),-2,2), mdiv=clamp(num("marketDiv",1),-2,2);
+
+  const trend=clamp(10+ema*5 + (pc>0?2:pc<0?-2:0),0,20);
+  const momentum=clamp(7.5 + (rsi>=50?3:rsi>=40?1:rsi<=30?-3:-1) + macd*2 + rdiv*1.2,0,15);
+  const volume=clamp(7.5 + (vr>=2?5:vr>=1.5?3:vr>=1.1?1:vr<.8?-2:0) + (pc>0&&vr>1.2?1:pc<0&&vr>1.5?-2:0),0,15);
+  const flowScore=clamp(7.5+flow*3 + mdiv*.5,0,15);
+  const pos=clamp(7.5+(vwap>0?2:-2)+(rel>1?2:rel<-1?-2:0)+(bbw<bba*.7?1:0),0,15);
+  const volScore=clamp(8 - (vix>30?4:vix>25?2:vix<15?0:1) + (vix1d()<vix?1:0),0,10);
+  const market=ms;
+  const total=Math.round(trend+momentum+volume+flowScore+pos+volScore+market);
+
+  const vals=[
+    ["추세",trend,20],["모멘텀",momentum,15],["거래량",volume,15],["수급",flowScore,15],
+    ["가격위치",pos,15],["변동성",volScore,10],["시장환경",market,10]
+  ];
+  return {total,vals,rsi,ema,macd,vr,pc,rel,vwap,bbw,bba,fear,vix,ms,flow,rdiv,mdiv};
+}
+function vix1d(){return Math.max(.1,num("vix1d",15.8))}
+function vix3m(){return Math.max(.1,num("vix3m",20.1))}
+
+function grade(s){
+  if(s>=90)return["S+","극강 매수"];
+  if(s>=80)return["S","강력 매수"];
+  if(s>=70)return["A","매수 우위"];
+  if(s>=60)return["B","약한 매수"];
+  if(s>=45)return["C","중립"];
+  if(s>=35)return["D","매도 경계"];
+  if(s>=20)return["E","매도 우위"];
+  return["F","강력 매도"];
+}
+function fearLabel(x){
+  if(x<=20)return"EXTREME FEAR";
+  if(x<=40)return"FEAR";
+  if(x<60)return"NEUTRAL";
+  if(x<80)return"GREED";
+  return"EXTREME GREED";
+}
+function setClass(el,kind){
+  el.classList.remove("good","bad","warn","orange","blue");
+  if(kind)el.classList.add(kind);
+}
+function render(){
+  const e=engine(), [g,v]=grade(e.total);
+  const prev=history[history.length-1]??e.total, delta=e.total-prev;
+  history.push(e.total);if(history.length>14)history.shift();
+
+  $("totalScore").textContent=e.total;
+  $("scoreRing").style.background=`conic-gradient(var(--orange) 0deg,var(--orange2) ${e.total*3.6}deg,#242424 ${e.total*3.6}deg)`;
+  $("verdict").textContent=v;$("grade").textContent=g;
+  $("buyScore").textContent=e.total;
+  $("sellScore").textContent=100-e.total;
+  const confidence=Math.round(clamp(55+Math.abs(e.total-50)*.55 + Math.abs(e.flow)*4 + Math.abs(e.ema)*3,0,98));
+  $("confidence").textContent=confidence+"%";$("confidenceBar").style.width=confidence+"%";
+  $("delta").textContent=(delta>0?"+":"")+delta;
+  setClass($("delta"),delta>2?"good":delta<-2?"bad":"warn");
+  $("decision").textContent=e.total>=70?"ACCUMULATION":e.total<=34?"DISTRIBUTION":"WAIT";
+  $("decisionSub").textContent=e.total>=70?"매수 우위":e.total<=34?"매도 우위":"확인 필요";
+
+  const consensus=e.vals.filter(x=>x[1]/x[2]>=.65).length;
+  $("consensus").textContent=consensus+"/7";
+  $("consensusText").textContent=consensus>=6?"HIGH CONVICTION":consensus>=4?"MODERATE":"LOW CONVICTION";
+
+  $("engineRows").innerHTML=e.vals.map(([name,val,max])=>{
+    const pct=Math.round(val/max*100), cls=pct>=70?"good":pct<45?"bad":"warn";
+    return `<div class="engineRow"><div class="engineName">${name}</div><div class="engineBar"><i style="width:${pct}%;background:${cls==="good"?"var(--green)":cls==="bad"?"var(--red)":"var(--yellow)"}"></i></div><div class="engineScore">${Math.round(val)}/${max}</div></div>`;
+  }).join("");
+
+  const best=[...e.vals].sort((a,b)=>b[1]/b[2]-a[1]/a[2])[0];
+  const worst=[...e.vals].sort((a,b)=>a[1]/a[2]-b[1]/b[2])[0];
+  $("strength").textContent=best[0];$("strengthSub").textContent=`${Math.round(best[1])}/${best[2]} · ${Math.round(best[1]/best[2]*100)}%`;
+  $("risk").textContent=worst[0];$("riskSub").textContent=`${Math.round(worst[1])}/${worst[2]} · ${Math.round(worst[1]/worst[2]*100)}%`;
+
+  renderAlerts(e);
+  renderDivergence(e);
+  renderMarket(e);
+  renderScenario();
+  renderScoreHistory();
+}
+function renderAlerts(e){
+  const arr=[];
+  arr.push({k:e.ema>=1?"good":"bad",t:e.ema>=1?"EMA bullish alignment":"EMA bearish alignment",s:`EMA 상태 ${e.ema}`});
+  arr.push({k:e.rsi<=30?"good":e.rsi>=70?"bad":"warn",t:e.rsi<=30?"RSI oversold":e.rsi>=70?"RSI overbought":"RSI neutral zone",s:`RSI ${fmt(e.rsi)}`});
+  arr.push({k:e.rdiv>0?"good":e.rdiv<0?"bad":"warn",t:e.rdiv>0?"Bullish RSI divergence":e.rdiv<0?"Bearish RSI divergence":"RSI divergence 없음",s:`괴리 ${e.rdiv}`});
+  arr.push({k:e.vr>=1.5&&e.pc>0?"good":e.vr>=1.5&&e.pc<0?"bad":"warn",t:e.vr>=1.5&&e.pc>0?"Volume accumulation":e.vr>=1.5&&e.pc<0?"Volume selling pressure":"Volume normal",s:`평균 대비 ${fmt(e.vr)}배`});
+  arr.push({k:e.rel>1?"good":e.rel<-1?"bad":"warn",t:e.rel>1?"Relative strength":"Relative weakness",s:`시장 대비 ${e.rel>0?"+":""}${fmt(e.rel)}%`});
+  arr.push({k:e.vwap>0?"good":"bad",t:e.vwap>0?"Above VWAP":"Below VWAP",s:`VWAP 대비 ${e.vwap>0?"+":""}${fmt(e.vwap)}%`});
+  arr.push({k:e.bbw<e.bba*.7?"warn":"good",t:e.bbw<e.bba*.7?"Bollinger squeeze":"Bollinger normal",s:`폭 ${fmt(e.bbw)}% / 평균 ${fmt(e.bba)}%`});
+  arr.push({k:e.vix>30?"bad":e.vix>25?"warn":"good",t:e.vix>30?"Market panic risk":e.vix>25?"Market fear elevated":"VIX stable",s:`VIX ${fmt(e.vix)}`});
+  $("signalList").innerHTML=arr.map(a=>`<div class="signal"><div class="left"><i class="dot ${a.k}"></i><span>${a.t}</span></div><small>${a.s}</small></div>`).join("");
+}
+function renderDivergence(e){
+  const flow=e.flow>0?"BULLISH":e.flow<0?"BEARISH":"NEUTRAL";
+  $("divFlow").textContent=flow;setClass($("divFlow"),flow==="BULLISH"?"good":flow==="BEARISH"?"bad":"warn");
+  $("divFlowSub").textContent=e.flow>0?"외국인·기관 우호":e.flow<0?"수급 약화":"수급 혼재";
+  const r=e.rdiv>0?"BULLISH":e.rdiv<0?"BEARISH":"NONE";
+  $("divRsi").textContent=r;setClass($("divRsi"),r==="BULLISH"?"good":r==="BEARISH"?"bad":"warn");
+  $("divRsiSub").textContent=e.rdiv>0?"가격 하락 대비 RSI 개선":e.rdiv<0?"가격 상승 대비 RSI 약화":"뚜렷한 괴리 없음";
+  const m=e.mdiv>0?"OUTPERFORM":e.mdiv<0?"UNDERPERFORM":"NEUTRAL";
+  $("divMarket").textContent=m;setClass($("divMarket"),m==="OUTPERFORM"?"good":m==="UNDERPERFORM"?"bad":"warn");
+  $("divMarketSub").textContent=m==="OUTPERFORM"?"시장 대비 강함":m==="UNDERPERFORM"?"시장 대비 약함":"시장과 동조";
+  const chips=[];
+  if(e.flow>0)chips.push("가격-수급 매수 괴리");
+  if(e.rdiv>0)chips.push("RSI 상승 다이버전스");
+  if(e.rdiv<0)chips.push("RSI 하락 다이버전스");
+  if(e.mdiv>0)chips.push("상대강도 우위");
+  if(e.mdiv<0)chips.push("상대강도 열위");
+  $("divChips").innerHTML=(chips.length?chips:["유의미한 괴리 없음"]).map(x=>`<span class="chip">${x}</span>`).join("");
+}
+function renderMarket(e){
+  $("fearNum").textContent=Math.round(e.fear);$("fearLabel").textContent=fearLabel(e.fear);
+  $("fearMarker").style.left=e.fear+"%";
+  $("vixValue").textContent=fmt(e.vix);$("vix1dValue").textContent=fmt(vix1d());$("vix3mValue").textContent=fmt(vix3m());
+  $("vixLabel").textContent=e.vix>30?"PANIC":e.vix>25?"FEAR":e.vix>20?"CAUTION":"NORMAL";
+  const s1=vix1d(),s3=vix3m();
+  let st="NORMAL TERM STRUCTURE";
+  if(s1>e.vix&&e.vix>s3)st="SHORT-TERM FEAR SPIKE";
+  else if(e.vix>s3)st="BACKWARDATION RISK";
+  else if(s1<e.vix&&e.vix<s3)st="NORMAL / CONTANGO";
+  $("vixStructure").textContent=st;
+  $("marketRegime").textContent=e.fear<=20||e.vix>30?"EXTREME FEAR":e.fear>=80||e.vix<14?"EXTREME GREED":e.fear<40||e.vix>22?"RISK-OFF / CAUTION":"RISK-ON / NORMAL";
+  const vals=[["mSP",e.ms>=7?"🟢":"🟡"],["mND",e.ms>=7?"🟢":"🟡"],["mKS",e.ms>=6?"🟢":"🟡"],["mKQ",e.ms>=6?"🟢":"🟡"]];
+  vals.forEach(x=>$(x[0]).textContent=x[1]);
+  $("mDXY").textContent=e.vix>25?"⚠️":"•";$("mUS10Y").textContent=e.vix>25?"⚠️":"•";$("mOIL").textContent="•";$("mGOLD").textContent=e.vix>25?"🟢":"•";
+}
+function renderScenario(){
+  const p=num("price",100),s=num("support",94),r=num("resistance",113),b=Math.max(0,num("buffer",2))/100;
+  $("graphP").textContent=fmt(p,4);$("graphS").textContent=fmt(s,4);$("graphR").textContent=fmt(r,4);
+  const dot=clamp((p-s)/(r-s),0,1);$("priceDot").style.left=(8+87*dot)+"%";
+  if(!(p>0&&s>0&&r>0&&s<p&&r>p)){
+    $("forecast").innerHTML='<p class="note">조건: 지지선 &lt; 현재가 &lt; 저항선</p>';return;
+  }
+  const risk=p-s,up=r-p,ratio=up/risk,down=s*(1-b),upTarget=r*(1+b);
+  $("forecast").innerHTML=
+    `<div class="kv"><span>현재가</span><b>${fmt(p,4)}</b></div>
+     <div class="kv"><span>저항까지 상승여력</span><b class="good">+${fmt(up/p*100)}%</b></div>
+     <div class="kv"><span>지지까지 하락위험</span><b class="bad">-${fmt(risk/p*100)}%</b></div>
+     <div class="kv"><span>상방 확장</span><b>${fmt(upTarget,4)} (+${fmt((upTarget/p-1)*100)}%)</b></div>
+     <div class="kv"><span>지지 이탈 위험구간</span><b>${fmt(down,4)} (${fmt((down/p-1)*100)}%)</b></div>
+     <div class="kv"><span>Risk / Reward</span><b class="${ratio>=2?"good":ratio<1?"bad":"warn"}">1 : ${fmt(ratio,2)}</b></div>`;
+}
+function renderScoreHistory(){
+  const c=$("scoreHistory"),ctx=c.getContext("2d"),w=c.width,h=c.height;
+  ctx.clearRect(0,0,w,h);
+  ctx.strokeStyle="#222";ctx.lineWidth=1;
+  for(let i=1;i<4;i++){let y=i*h/4;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}
+  const min=0,max=100;
+  ctx.strokeStyle="#ff9b2f";ctx.lineWidth=3;ctx.beginPath();
+  history.forEach((v,i)=>{
+    const x=15+i*(w-30)/Math.max(1,history.length-1),y=h-15-(v-min)/(max-min)*(h-30);
+    i?ctx.lineTo(x,y):ctx.moveTo(x,y)
+  });ctx.stroke();
+  ctx.fillStyle="#777";ctx.font="11px sans-serif";ctx.fillText("SIGNAL HISTORY",8,16);
+}
+function loadTV(){
+  const s=($("symbol").value||"NASDAQ:NVDA").trim().toUpperCase();
+  $("symbol").value=s;
+  const map={
+    chart:{file:"advanced-chart",config:{autosize:true,symbol:s,interval:interval==="D"?"D":interval==="W"?"W":"M",timezone:"exchange",theme:"dark",backgroundColor:"#050505",style:"1",locale:"kr",allow_symbol_change:true,withdateranges:true,hide_side_toolbar:false,save_image:false,details:true,support_host:"https://www.tradingview.com"}},
+    technical:{file:"technical-analysis",config:{interval:interval==="D"?"1D":interval==="W"?"1W":"1M",width:"100%",isTransparent:true,showIntervalTabs:true,displayMode:"single",locale:"kr",colorTheme:"dark",symbol:s}},
+    fundamental:{file:"fundamental-data",config:{colorTheme:"dark",displayMode:"regular",isTransparent:true,locale:"kr",symbol:s,width:"100%"}},
+    news:{file:"timeline",config:{feedMode:"symbol",symbol:s,colorTheme:"dark",isTransparent:true,displayMode:"regular",width:"100%",height:330,locale:"kr"}},
+    market:{file:"market-overview",config:{colorTheme:"dark",dateRange:"12M",showChart:true,locale:"kr",largeChartUrl:"",isTransparent:true,showSymbolLogo:true,showFloatingTooltip:false,width:"100%",height:430,tabs:[
+      {title:"지수",symbols:[{s:"FOREXCOM:SPXUSD",d:"S&P 500"},{s:"NASDAQ:NDX",d:"Nasdaq 100"},{s:"KRX:KOSPI",d:"KOSPI"},{s:"KRX:KOSDAQ",d:"KOSDAQ"}]},
+      {title:"변동성",symbols:[{s:"CBOE:VIX",d:"VIX"},{s:"CBOE:VIX1D",d:"VIX1D"},{s:"CBOE:VIX3M",d:"VIX3M"}]},
+      {title:"거시",symbols:[{s:"TVC:DXY",d:"달러지수"},{s:"TVC:US10Y",d:"미국 10년물"},{s:"TVC:USOIL",d:"WTI"},{s:"TVC:GOLD",d:"금"}]}
+    ]}}
+  };
+  function embed(id,obj,height){
+    const root=$(id);root.innerHTML="";
+    const box=document.createElement("div");box.style.height=height+"px";
+    const sc=document.createElement("script");sc.src="https://s3.tradingview.com/external-embedding/embed-widget-"+obj.file+".js";sc.async=true;sc.type="text/javascript";sc.text=JSON.stringify(obj.config);box.appendChild(sc);root.appendChild(box);
+  }
+  embed("tvchart",map.chart,420);embed("technical",map.technical,310);embed("fundamental",map.fundamental,330);embed("news",map.news,330);embed("marketWidget",map.market,430);
+  const t=s.split(":").pop();
+  $("yahoo").href="https://finance.yahoo.com/quote/"+encodeURIComponent(t)+"/";
+  $("google").href="https://news.google.com/search?q="+encodeURIComponent(s);
+  $("sec").href="https://www.sec.gov/edgar/search/#/q="+encodeURIComponent(t);
+}
+$("load").addEventListener("click",loadTV);
+$("symbol").addEventListener("keydown",e=>{if(e.key==="Enter")loadTV()});
+document.querySelectorAll("[data-symbol]").forEach(b=>b.addEventListener("click",()=>{$("symbol").value=b.dataset.symbol;loadTV()}));
+document.querySelectorAll("[data-interval]").forEach(b=>b.addEventListener("click",()=>{
+  interval=b.dataset.interval;document.querySelectorAll("[data-interval]").forEach(x=>x.classList.toggle("active",x===b));loadTV();
+}));
+$("calc").addEventListener("click",renderScenario);
+$("recalc").addEventListener("click",render);
+$("flowcalc").addEventListener("click",()=>{
+  const f=num("foreign",0),i=num("institution",0),r=num("retail",0),p=$("flowperiod").value;
+  const title=f>0&&i>0?"외국인·기관 동반 순매수":f<0&&i<0?"외국인·기관 동반 순매도":f*i<0?"외국인·기관 수급 괴리 탐지":"수급 신호 혼재 또는 중립";
+  const cls=f>0&&i>0?"good":f<0&&i<0?"bad":"warn";
+  const desc=f>0&&i>0?"가격이 따라오지 않는다면 공급 물량과 시장 레짐을 확인하십시오.":f<0&&i<0?"가격이 버틴다면 흡수 주체와 시장 전체 흐름을 확인하십시오.":"두 주체의 방향이 반대입니다. 주도 주체와 지속성을 확인하십시오.";
+  $("flowresult").innerHTML=`<b class="${cls}">${title}</b>
+  <div class="kv"><span>비교 기간</span><b>${p}</b></div>
+  <div class="kv"><span>외국인</span><b>${fmt(f,0)}억원 · ${f>0?"순매수":f<0?"순매도":"중립"}</b></div>
+  <div class="kv"><span>기관</span><b>${fmt(i,0)}억원 · ${i>0?"순매수":i<0?"순매도":"중립"}</b></div>
+  <div class="kv"><span>개인</span><b>${fmt(r,0)}억원 · ${r>0?"순매수":r<0?"순매도":"중립"}</b></div>
+  <p class="note">${desc}</p>`;
+});
+render();renderScenario();loadTV();
+</script>
+</body>
+</html>
